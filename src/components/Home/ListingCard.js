@@ -32,7 +32,7 @@ const ListingCard = ({ listing }) => {
                     <p className={styles.distance}>{listing.distance}</p>
                     <p className={styles.date}>{listing.date}</p>
                     <div className={styles.priceRow}>
-                        <span className={styles.price}>${listing.price}</span>
+                        <span className={styles.price}>₹{listing.price.toLocaleString('en-IN')}</span>
                         <span className={styles.night}> night</span>
                     </div>
                 </div>

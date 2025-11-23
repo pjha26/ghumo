@@ -60,7 +60,7 @@ const Footer = () => {
                             <span>English (US)</span>
                         </div>
                         <div className={styles.currency}>
-                            <span>$ USD</span>
+                            <span>₹ INR</span>
                         </div>
                     </div>
                 </div>

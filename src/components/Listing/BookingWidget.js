@@ -8,7 +8,7 @@ const BookingWidget = ({ listing }) => {
             <div className={styles.widget}>
                 <div className={styles.header}>
                     <div>
-                        <span className={styles.price}>${listing.price}</span>
+                        <span className={styles.price}>₹{listing.price.toLocaleString('en-IN')}</span>
                         <span className={styles.night}> night</span>
                     </div>
                     <div className={styles.rating}>
@@ -45,22 +45,22 @@ const BookingWidget = ({ listing }) => {
 
                 <div className={styles.priceBreakdown}>
                     <div className={styles.row}>
-                        <span className={styles.underline}>${listing.price} x 5 nights</span>
-                        <span>${listing.price * 5}</span>
+                        <span className={styles.underline}>₹{listing.price.toLocaleString('en-IN')} x 5 nights</span>
+                        <span>₹{(listing.price * 5).toLocaleString('en-IN')}</span>
                     </div>
                     <div className={styles.row}>
                         <span className={styles.underline}>Cleaning fee</span>
-                        <span>$60</span>
+                        <span>₹2,500</span>
                     </div>
                     <div className={styles.row}>
                         <span className={styles.underline}>Airbnb service fee</span>
-                        <span>$85</span>
+                        <span>₹3,500</span>
                     </div>
                 </div>
 
                 <div className={styles.total}>
                     <span>Total before taxes</span>
-                    <span>${listing.price * 5 + 60 + 85}</span>
+                    <span>₹{(listing.price * 5 + 2500 + 3500).toLocaleString('en-IN')}</span>
                 </div>
             </div>
         </div>
