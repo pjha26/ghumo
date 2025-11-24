@@ -68,8 +68,31 @@ const Header = () => {
           </div>
 
           {isSignedIn ? (
-            <div className={styles.clerkUserButton}>
-              <UserButton afterSignOutUrl="/" />
+            <div
+              className={styles.profileMenu}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              ref={menuRef}
+            >
+              <Menu size={18} />
+              <div className={styles.avatar}>
+                <UserButton afterSignOutUrl="/" appearance={{ elements: { avatarBox: 'w-8 h-8' } }} />
+              </div>
+
+              {isMenuOpen && (
+                <div className={styles.dropdown}>
+                  <div className={styles.menuItem} style={{ fontWeight: '600' }}>
+                    <Link href="/trips" onClick={() => setIsMenuOpen(false)}>My Trips</Link>
+                  </div>
+                  <div className={styles.menuItem} style={{ fontWeight: '600' }}>
+                    <Link href="/wishlists" onClick={() => setIsMenuOpen(false)}>Wishlists</Link>
+                  </div>
+                  <div className={styles.menuDivider}></div>
+                  <div className={styles.menuItem}>Airbnb your home</div>
+                  <div className={styles.menuItem}>Account</div>
+                  <div className={styles.menuDivider}></div>
+                  <div className={styles.menuItem}>Help Center</div>
+                </div>
+              )}
             </div>
           ) : (
             <div

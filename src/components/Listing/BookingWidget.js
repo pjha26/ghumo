@@ -8,7 +8,6 @@ import styles from './BookingWidget.module.css';
 
 const BookingWidget = ({ listing }) => {
     const { isSignedIn, user } = useUser();
-    const { openSignIn } = useClerk();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -21,7 +20,7 @@ const BookingWidget = ({ listing }) => {
 
     const handleReserve = async () => {
         if (!isSignedIn) {
-            openSignIn();
+            router.push('/sign-in');
             return;
         }
 
@@ -49,9 +48,8 @@ const BookingWidget = ({ listing }) => {
 
             setSuccess(true);
             setTimeout(() => {
-                // router.push('/trips'); // Redirect to trips page if it existed
-                setSuccess(false);
-            }, 3000);
+                router.push('/trips'); // Redirect to trips page
+            }, 2000);
 
         } catch (err) {
             setError(err.message);
