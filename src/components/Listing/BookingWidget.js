@@ -2,15 +2,14 @@
 
 import React, { useState } from 'react';
 import { Star, ChevronDown, Loader2 } from 'lucide-react';
-import { useSession } from 'next-auth/react';
+import { useUser, useClerk } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
-import useAuthModal from '@/hooks/useAuthModal';
 import styles from './BookingWidget.module.css';
 
 const BookingWidget = ({ listing }) => {
-    const { data: session } = useSession();
+    const { isSignedIn, user } = useUser();
+    const { openSignIn } = useClerk();
     const router = useRouter();
-    const authModal = useAuthModal();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
@@ -21,8 +20,8 @@ const BookingWidget = ({ listing }) => {
     const totalPrice = listing.price * 5 + 2500 + 3500;
 
     const handleReserve = async () => {
-        if (!session) {
-            authModal.onOpen();
+        if (!isSignedIn) {
+            openSignIn();
             return;
         }
 

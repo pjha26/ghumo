@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/auth';
+import { currentUser } from '@clerk/nextjs/server';
 import prisma from '@/lib/prisma';
 
 export async function POST(request) {
     try {
-        const session = await auth();
-        if (!session) {
+        const user = await currentUser();
+        if (!user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -19,7 +19,7 @@ export async function POST(request) {
         const booking = await prisma.reservation.create({
             data: {
                 listingId,
-                userId: session.user.id,
+                userId: user.id,
                 startDate: new Date(startDate),
                 endDate: new Date(endDate),
                 totalPrice,
