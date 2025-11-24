@@ -26,23 +26,6 @@
     color: var(--text-primary);
 }
 
-.night {
-    font-size: 16px;
-    color: var(--text-primary);
-}
-
-.rating {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.dot {
-    margin: 0 2px;
-}
-
 .reviews {
     color: var(--text-secondary);
     text-decoration: underline;
@@ -83,6 +66,12 @@
 
 .guests {
     padding: 10px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.guests:hover {
+    background-color: #f7f7f7;
 }
 
 .guests .value {
@@ -140,4 +129,115 @@
     font-weight: 600;
     font-size: 16px;
     color: var(--text-primary);
+}
+
+.night {
+    font-size: 16px;
+    color: var(--text-primary);
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.dot {
+    margin: 0 2px;
+}
+
+/* Guest Picker Dropdown */
+.guestPicker {
+    padding: 16px;
+    border-top: 1px solid var(--border-dark);
+    background: white;
+    animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.guestRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+}
+
+.guestRow:not(:last-child) {
+    border-bottom: 1px solid #ebebeb;
+}
+
+.guestType {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.guestDesc {
+    font-size: 14px;
+    color: #717171;
+}
+
+.guestControls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.guestBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #b0b0b0;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.guestBtn:hover:not(:disabled) {
+    border-color: #222;
+    background: #f7f7f7;
+}
+
+.guestBtn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.guestCount {
+    font-size: 16px;
+    font-weight: 400;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Spinner Animation */
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }

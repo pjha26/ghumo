@@ -4,9 +4,11 @@
     left: 0;
     right: 0;
     height: 80px;
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
     border-bottom: 1px solid #ebebeb;
     z-index: 100;
+    transition: box-shadow 0.2s ease;
 }
 
 .dropdown {
@@ -34,8 +36,6 @@
 .menuItem:hover {
     background-color: #f7f7f7;
 }
-
-
 
 .logo {
     display: flex;

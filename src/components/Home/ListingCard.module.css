@@ -2,12 +2,13 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    group: pointer;
+    cursor: pointer;
+    position: relative;
 }
 
 .imageContainer {
     position: relative;
-    aspect-ratio: 20 / 19;
+    aspect-ratio: 1 / 1;
     border-radius: var(--radius-md);
     overflow: hidden;
     background-color: #f0f0f0;
@@ -17,12 +18,12 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* .card:hover .image {
-  transform: scale(1.05);
-} */
+.card:hover .image {
+    transform: scale(1.05);
+}
 
 .favoriteBtn {
     position: absolute;
