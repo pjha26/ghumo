@@ -10,8 +10,10 @@ import styles from './ListingCard.module.css';
 const ListingCard = ({ listing }) => {
     return (
         <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3 }}
         >
             <Link href={`/rooms/${listing.id}`} className={styles.card}>
                 <div className={styles.imageContainer}>
