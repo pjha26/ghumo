@@ -1,0 +1,64 @@
+.hero {
+    position: relative;
+    height: 500px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    margin-bottom: 40px;
+    border-radius: 0 0 24px 24px;
+}
+
+.content {
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 32px;
+    opacity: 0.9;
+}
+
+.ctaButton {
+    background-color: var(--primary);
+    color: white;
+    padding: 16px 32px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.ctaButton:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.ctaButton:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .hero {
+        height: 400px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+}

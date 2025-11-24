@@ -6,7 +6,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import styles from './AuthModal.module.css';
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen, onClose, onSwitchToSignup }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -79,7 +79,12 @@ const LoginModal = ({ isOpen, onClose }) => {
                         <Mail size={20} className={styles.socialIcon} />
                         Continue with Email
                     </button>
-                    {/* Add more social buttons as needed */}
+
+                    <div className={styles.divider}></div>
+
+                    <button className={styles.socialBtn} onClick={onSwitchToSignup}>
+                        Don&apos;t have an account? Sign up
+                    </button>
                 </div>
             </div>
         </div>

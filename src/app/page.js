@@ -4,6 +4,8 @@ import ListingCard from '@/components/Home/ListingCard';
 import prisma from '@/lib/prisma';
 import styles from './page.module.css';
 
+import Hero from '@/components/Home/Hero';
+
 export const dynamic = 'force-dynamic';
 
 async function getListings() {
@@ -21,6 +23,7 @@ export default async function Home() {
 
   return (
     <div className={styles.home}>
+      <Hero />
       <CategoryBar />
       <div className={`container ${styles.gridContainer}`}>
         <div className={styles.grid}>

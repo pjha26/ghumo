@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Star, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import styles from './ListingCard.module.css';
@@ -14,7 +15,16 @@ const ListingCard = ({ listing }) => {
         >
             <Link href={`/rooms/${listing.id}`} className={styles.card}>
                 <div className={styles.imageContainer}>
-                    <img src={listing.images?.[0] || listing.image} alt={listing.title} className={styles.image} />
+                    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                        <Image
+                            src={listing.images?.[0] || listing.image}
+                            alt={listing.title}
+                            fill
+                            className={styles.image}
+                            style={{ objectFit: 'cover' }}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                    </div>
                     <button className={styles.favoriteBtn}>
                         <Heart size={24} color="white" strokeWidth={2} className={styles.heartIcon} />
                     </button>

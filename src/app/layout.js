@@ -11,11 +11,14 @@ export const metadata = {
   description: "A clone of Airbnb built with Next.js",
 };
 
+import AuthModal from "@/components/Auth/AuthModal";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
+          <AuthModal />
           <Header />
           <main style={{ paddingTop: '80px', minHeight: '100vh' }}>
             {children}
