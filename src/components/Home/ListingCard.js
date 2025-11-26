@@ -1,13 +1,39 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Star, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useFavoriteStore } from '@/store/favoriteStore';
+import { useUser } from '@clerk/nextjs';
 import styles from './ListingCard.module.css';
 
 const ListingCard = ({ listing, priority = false }) => {
+    const { user } = useUser();
+    const { favoriteIds, toggleFavorite, fetchFavorites } = useFavoriteStore();
+    const isFavorite = favoriteIds.includes(listing.id);
+
+    // Fetch favorites on mount if user is logged in
+    useEffect(() => {
+        if (user && favoriteIds.length === 0) {
+            fetchFavorites();
+        }
+    }, [user, favoriteIds.length, fetchFavorites]);
+
+    const handleFavoriteClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!user) {
+            // Redirect to sign in if not logged in
+            window.location.href = '/sign-in';
+            return;
+        }
+
+        toggleFavorite(listing.id);
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -29,8 +55,18 @@ const ListingCard = ({ listing, priority = false }) => {
                             priority={priority}
                         />
                     </div>
-                    <button className={styles.favoriteBtn}>
-                        <Heart size={24} color="white" strokeWidth={2} className={styles.heartIcon} />
+                    <button
+                        onClick={handleFavoriteClick}
+                        className={`${styles.favoriteBtn} ${isFavorite ? styles.favorited : ''}`}
+                        aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                    >
+                        <Heart
+                            size={24}
+                            color={isFavorite ? "#FF385C" : "white"}
+                            fill={isFavorite ? "#FF385C" : "transparent"}
+                            strokeWidth={2}
+                            className={styles.heartIcon}
+                        />
                     </button>
                     <div className={styles.guestFavorite}>Guest favorite</div>
                 </div>
