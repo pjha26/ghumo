@@ -25,14 +25,28 @@ async function getStats() {
     };
 }
 
-const StatCard = ({ title, value, icon: Icon, color }) => (
-    <div className="bg-[#1E1E1E] p-6 rounded-xl shadow-lg border border-[#333333] flex items-center gap-4 transition-transform hover:scale-[1.02]">
-        <div className={`p-4 rounded-lg ${color} bg-opacity-20`}>
-            <Icon size={24} className={color.replace('bg-', 'text-')} />
+const StatCard = ({ title, value, icon: Icon, bgColor, iconColor }) => (
+    <div style={{
+        backgroundColor: '#1E1E1E',
+        padding: '24px',
+        borderRadius: '12px',
+        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)',
+        border: '1px solid #333333',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '16px',
+        transition: 'transform 0.2s',
+    }}>
+        <div style={{
+            padding: '16px',
+            borderRadius: '8px',
+            backgroundColor: bgColor,
+        }}>
+            <Icon size={24} color={iconColor} />
         </div>
         <div>
-            <p className="text-sm text-gray-400 font-medium">{title}</p>
-            <h3 className="text-2xl font-bold text-white">{value}</h3>
+            <p style={{ fontSize: '14px', color: '#9CA3AF', fontWeight: 500, margin: 0 }}>{title}</p>
+            <h3 style={{ fontSize: '24px', fontWeight: 'bold', color: 'white', margin: '4px 0 0 0' }}>{value}</h3>
         </div>
     </div>
 );
@@ -41,50 +55,74 @@ export default async function AdminDashboard() {
     const stats = await getStats();
 
     return (
-        <div className="space-y-8">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
             <div>
-                <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-                <p className="text-gray-400 mt-2">Welcome back, Admin</p>
+                <h1 style={{ fontSize: '30px', fontWeight: 'bold', color: 'white', margin: 0 }}>Dashboard</h1>
+                <p style={{ color: '#9CA3AF', marginTop: '8px' }}>Welcome back, Admin</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '24px'
+            }}>
                 <StatCard
                     title="Total Users"
                     value={stats.users}
                     icon={Users}
-                    color="bg-blue-500 text-blue-400"
+                    bgColor="rgba(59, 130, 246, 0.2)"
+                    iconColor="#60A5FA"
                 />
                 <StatCard
                     title="Total Listings"
                     value={stats.listings}
                     icon={Building2}
-                    color="bg-purple-500 text-purple-400"
+                    bgColor="rgba(168, 85, 247, 0.2)"
+                    iconColor="#C084FC"
                 />
                 <StatCard
                     title="Total Reservations"
                     value={stats.reservations}
                     icon={CalendarDays}
-                    color="bg-orange-500 text-orange-400"
+                    bgColor="rgba(249, 115, 22, 0.2)"
+                    iconColor="#FB923C"
                 />
                 <StatCard
                     title="Total Revenue"
                     value={`₹${stats.revenue.toLocaleString('en-IN')}`}
                     icon={DollarSign}
-                    color="bg-green-500 text-green-400"
+                    bgColor="rgba(34, 197, 94, 0.2)"
+                    iconColor="#4ADE80"
                 />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-[#1E1E1E] p-6 rounded-xl shadow-lg border border-[#333333]">
-                    <h2 className="text-lg font-bold text-white mb-4">Recent Activity</h2>
-                    <div className="flex items-center justify-center h-48 text-gray-600">
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+                gap: '32px'
+            }}>
+                <div style={{
+                    backgroundColor: '#1E1E1E',
+                    padding: '24px',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)',
+                    border: '1px solid #333333'
+                }}>
+                    <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: 'white', marginBottom: '16px' }}>Recent Activity</h2>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '192px', color: '#6B7280' }}>
                         Chart Placeholder
                     </div>
                 </div>
 
-                <div className="bg-[#1E1E1E] p-6 rounded-xl shadow-lg border border-[#333333]">
-                    <h2 className="text-lg font-bold text-white mb-4">Recent Bookings</h2>
-                    <div className="flex items-center justify-center h-48 text-gray-600">
+                <div style={{
+                    backgroundColor: '#1E1E1E',
+                    padding: '24px',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)',
+                    border: '1px solid #333333'
+                }}>
+                    <h2 style={{ fontSize: '18px', fontWeight: 'bold', color: 'white', marginBottom: '16px' }}>Recent Bookings</h2>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '192px', color: '#6B7280' }}>
                         List Placeholder
                     </div>
                 </div>

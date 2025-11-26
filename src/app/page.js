@@ -1,9 +1,8 @@
 import React from 'react';
 import CategoryBar from '@/components/Home/CategoryBar';
-import ListingCard from '@/components/Home/ListingCard';
+import FilteredListings from '@/components/Home/FilteredListings';
 import prisma from '@/lib/prisma';
 import styles from './page.module.css';
-
 import Hero from '@/components/Home/Hero';
 
 export const dynamic = 'force-dynamic';
@@ -25,17 +24,7 @@ export default async function Home() {
     <div className={styles.home}>
       <Hero />
       <CategoryBar />
-      <div className={`container ${styles.gridContainer}`}>
-        <div className={styles.grid}>
-          {listings.map((listing, index) => (
-            <ListingCard
-              key={listing.id}
-              listing={listing}
-              priority={index < 4}
-            />
-          ))}
-        </div>
-      </div>
+      <FilteredListings initialListings={listings} />
     </div>
   );
 }

@@ -32,6 +32,7 @@ model Listing {
   lng          Float?
   images       String[]
   amenities    String[]
+  maxGuests    Int           @default(2)
   hostId       String        @db.ObjectId
   host         User          @relation(fields: [hostId], references: [id])
   reservations Reservation[]

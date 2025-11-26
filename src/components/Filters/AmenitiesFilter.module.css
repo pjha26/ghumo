@@ -1,0 +1,38 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.amenityButton {
+    padding: 12px;
+    border: 1px solid #E5E7EB;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+}
+
+.amenityButton:hover {
+    border-color: #FF385C;
+    background: #FFF5F7;
+}
+
+.amenityButton.active {
+    border-color: #FF385C;
+    background: #FF385C;
+    color: white;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.label {
+    font-size: 13px;
+    font-weight: 500;
+}

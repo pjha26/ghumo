@@ -20,9 +20,9 @@ export default async function AdminLayout({ children }) {
     }
 
     return (
-        <div className="flex min-h-screen bg-[#121212]">
+        <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#121212' }}>
             <AdminSidebar />
-            <main className="flex-1 ml-64 p-8">
+            <main style={{ flex: 1, marginLeft: '256px', padding: '32px' }}>
                 {children}
             </main>
         </div>

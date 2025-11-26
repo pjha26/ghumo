@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.ratingButton {
+    padding: 10px 16px;
+    border: 1px solid #E5E7EB;
+    background: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.ratingButton:hover {
+    border-color: #FF385C;
+    background: #FFF5F7;
+}
+
+.ratingButton.active {
+    border-color: #FF385C;
+    background: #FF385C;
+    color: white;
+}

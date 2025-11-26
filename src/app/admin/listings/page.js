@@ -1,13 +1,11 @@
 import React from 'react';
 import prisma from '@/lib/prisma';
-import DataTable from '@/components/Admin/DataTable';
-import ListingActions from '@/components/Admin/ListingActions';
-import Image from 'next/image';
+import ListingsTable from '@/components/Admin/ListingsTable';
 
 async function getListings() {
     const listings = await prisma.listing.findMany({
         orderBy: {
-            id: 'desc', // Using ID as proxy for creation time since createdAt might not be on Listing
+            id: 'desc',
         },
     });
     return listings;
@@ -15,41 +13,6 @@ async function getListings() {
 
 export default async function AdminListingsPage() {
     const listings = await getListings();
-
-    const columns = [
-        {
-            header: 'Image',
-            accessorKey: 'image',
-            cell: (row) => (
-                <div className="relative w-16 h-12 rounded-md overflow-hidden bg-[#2A2A2A]">
-                    <Image
-                        src={row.images?.[0] || row.image || '/placeholder.png'}
-                        alt={row.title}
-                        fill
-                        className="object-cover"
-                    />
-                </div>
-            ),
-        },
-        {
-            header: 'Title',
-            accessorKey: 'title',
-            cell: (row) => <span className="font-medium text-white">{row.title}</span>,
-        },
-        {
-            header: 'Location',
-            accessorKey: 'location',
-        },
-        {
-            header: 'Price',
-            accessorKey: 'price',
-            cell: (row) => `₹${row.price.toLocaleString('en-IN')}`,
-        },
-        {
-            header: 'Actions',
-            cell: (row) => <ListingActions listingId={row.id} />,
-        },
-    ];
 
     return (
         <div className="space-y-6">
@@ -63,7 +26,7 @@ export default async function AdminListingsPage() {
                 </button>
             </div>
 
-            <DataTable columns={columns} data={listings} searchKey="title" />
+            <ListingsTable listings={listings} />
         </div>
     );
 }

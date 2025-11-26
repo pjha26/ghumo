@@ -1,0 +1,34 @@
+.searchContainer {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6B7280;
+    pointer-events: none;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    border: 1px solid #E5E7EB;
+    border-radius: 50px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.2s;
+    background: white;
+}
+
+.searchInput:focus {
+    border-color: #FF385C;
+    box-shadow: 0 0 0 3px rgba(255, 56, 92, 0.1);
+}
+
+.searchInput::placeholder {
+    color: #9CA3AF;
+}
