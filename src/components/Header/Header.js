@@ -81,7 +81,7 @@ export default function Header() {
                       <div className={styles.menuItem} style={{ fontWeight: 600 }}>Messages</div>
                       <div className={styles.menuItem} style={{ fontWeight: 600 }}>Notifications</div>
                       <Link href="/trips" className={styles.menuItem} style={{ fontWeight: 600, display: 'block', textDecoration: 'none', color: 'inherit' }}>My Trips</Link>
-                      <div className={styles.menuItem} style={{ fontWeight: 600 }}>Wishlists</div>
+                      <Link href="/favorites" className={styles.menuItem} style={{ fontWeight: 600, display: 'block', textDecoration: 'none', color: 'inherit' }}>Favorites</Link>
                       <div style={{ height: '1px', backgroundColor: '#ddd', margin: '8px 0' }}></div>
                       <div className={styles.menuItem}>Account</div>
                       <div className={styles.menuItem}>Help Center</div>
