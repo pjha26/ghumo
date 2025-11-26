@@ -30,7 +30,7 @@ export default async function ListingPage({ params }) {
 
     return (
         <div className={`container ${styles.pageContainer}`}>
-            <ImageGallery images={listing.images} />
+            <ImageGallery images={listing.images} listingId={listing.id} />
             <div className={styles.contentGrid}>
                 <div className={styles.mainContent}>
                     <ListingInfo listing={listing} />

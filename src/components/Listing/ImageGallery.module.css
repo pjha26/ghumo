@@ -1,88 +1,85 @@
 .galleryContainer {
-    padding-top: 24px;
-    margin-bottom: 32px;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    position: relative;
     margin-bottom: 24px;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
-.title {
-    font-size: 26px;
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.actions {
+/* Action Buttons */
+.actionButtons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
     display: flex;
-    gap: 16px;
+    gap: 12px;
 }
 
-.actionBtn {
+.actionButton {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: underline;
-    padding: 8px;
+    padding: 8px 16px;
+    background: white;
+    border: none;
     border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.1s, background 0.2s;
 }
 
-.actionBtn:hover {
-    background-color: var(--bg-secondary);
+.actionButton:hover {
+    transform: scale(1.02);
+    background: #f7f7f7;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 8px;
-    border-radius: 12px;
-    overflow: hidden;
-    height: 400px;
-}
-
-@media (max-width: 744px) {
-    .grid {
-        grid-template-columns: 1fr;
-        height: auto;
-        aspect-ratio: 3/2;
+@media (max-width: 768px) {
+    .actionButtons {
+        top: 16px;
+        right: 16px;
     }
 
-    .subImages {
+    .actionText {
         display: none;
     }
 
-    .mainImage {
-        height: 100%;
+    .actionButton {
+        padding: 8px;
+        border-radius: 50%;
     }
 }
 
-.mainImage {
-    height: 100%;
+/* Mobile Carousel */
+.mobileCarousel {
+    display: block;
+}
+
+.mobileImageWrapper {
     position: relative;
+    width: 100%;
+    padding-top: 66.66%;
+    /* 3:2 Aspect Ratio */
 }
 
-.mainImage img {
+.swiper {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+}
+
+/* Desktop Grid */
+.desktopGrid {
+    display: none;
+    grid-template-columns: 2fr 1fr;
+    gap: 8px;
+    height: 400px;
+}
+
+.mainImage {
+    position: relative;
+    height: 100%;
     cursor: pointer;
-}
-
-.mainImage:hover::after,
-.subImageItem:hover::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-    pointer-events: none;
 }
 
 .subImages {
@@ -93,35 +90,107 @@
     height: 100%;
 }
 
-.subImageItem {
+.subImageWrapper {
     position: relative;
     height: 100%;
-}
-
-.subImageItem img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     cursor: pointer;
 }
 
-.showAllBtn {
+.image {
+    object-fit: cover;
+    transition: opacity 0.2s;
+}
+
+.mainImage:hover .image,
+.subImageWrapper:hover .image {
+    opacity: 0.9;
+}
+
+.showAllButton {
     position: absolute;
     bottom: 24px;
     right: 24px;
-    background-color: white;
-    border: 1px solid var(--text-primary);
-    padding: 6px 16px;
+    background: white;
+    border: 1px solid #333;
+    padding: 6px 14px;
     border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.1s ease;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.1s;
 }
 
-.showAllBtn:active {
-    transform: scale(0.96);
+.showAllButton:hover {
+    transform: scale(1.02);
+    background: #f7f7f7;
+}
+
+/* Modal */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 40px 0;
+}
+
+.closeButton {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.closeButton:hover {
+    background: #f1f1f1;
+}
+
+.modalContent {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.modalImageWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.modalImage {
+    max-width: 100%;
+    border-radius: 4px;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .mobileCarousel {
+        display: none;
+    }
+
+    .desktopGrid {
+        display: grid;
+        border-radius: 12px;
+        overflow: hidden;
+    }
 }

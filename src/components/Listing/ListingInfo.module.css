@@ -1,3 +1,66 @@
+.hostSection {
+    padding: 32px 0;
+}
+
+.hostHeader {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.hostAvatarLarge {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.hostAvatarLarge img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hostJoined {
+    color: #717171;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.hostStats {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.hostStat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+}
+
+.hostBio p {
+    margin-bottom: 8px;
+    color: #222;
+}
+
+.contactHost {
+    margin-top: 16px;
+    padding: 12px 24px;
+    background: white;
+    border: 1px solid #222;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.contactHost:hover {
+    background: #f7f7f7;
+}
+
 .infoContainer {
     padding-right: 48px;
 }

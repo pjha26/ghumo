@@ -1,56 +1,74 @@
 .widgetContainer {
-    position: relative;
-    width: 100%;
+    position: sticky;
+    top: 120px;
+    margin-bottom: 80px;
 }
 
 .widget {
-    position: sticky;
-    top: 100px;
-    border: 1px solid var(--border-light);
+    border: 1px solid #ddd;
     border-radius: 12px;
     padding: 24px;
-    box-shadow: var(--shadow-md);
-    background-color: var(--bg-primary);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    background: white;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     margin-bottom: 24px;
 }
 
 .price {
     font-size: 22px;
     font-weight: 600;
-    color: var(--text-primary);
+}
+
+.night {
+    font-size: 16px;
+    color: #222;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.dot {
+    margin: 0 4px;
 }
 
 .reviews {
-    color: var(--text-secondary);
+    color: #717171;
     text-decoration: underline;
     font-weight: 400;
+    cursor: pointer;
 }
 
 .picker {
-    border: 1px solid var(--border-dark);
+    border: 1px solid #b0b0b0;
     border-radius: 8px;
     margin-bottom: 16px;
+    position: relative;
 }
 
 .dates {
     display: flex;
-    border-bottom: 1px solid var(--border-dark);
+    border-bottom: 1px solid #b0b0b0;
+    cursor: pointer;
 }
 
 .checkIn,
 .checkOut {
     flex: 1;
     padding: 10px 12px;
+    position: relative;
 }
 
 .checkIn {
-    border-right: 1px solid var(--border-dark);
+    border-right: 1px solid #b0b0b0;
 }
 
 .label {
@@ -61,129 +79,73 @@
 
 .value {
     font-size: 14px;
-    color: var(--text-primary);
+    color: #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .guests {
     padding: 10px 12px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    position: relative;
 }
 
-.guests:hover {
-    background-color: #f7f7f7;
-}
-
-.guests .value {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.reserveBtn {
-    width: 100%;
-    background-color: var(--secondary);
-    color: white;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    transition: filter 0.2s;
-}
-
-.reserveBtn:hover {
-    filter: brightness(0.95);
-}
-
-.disclaimer {
-    text-align: center;
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin-bottom: 24px;
-}
-
-.priceBreakdown {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border-light);
-}
-
-.row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 16px;
-    color: var(--text-primary);
-}
-
-.underline {
-    text-decoration: underline;
-}
-
-.total {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 24px;
-    font-weight: 600;
-    font-size: 16px;
-    color: var(--text-primary);
-}
-
-.night {
-    font-size: 16px;
-    color: var(--text-primary);
-}
-
-.rating {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.dot {
-    margin: 0 2px;
-}
-
-/* Guest Picker Dropdown */
-.guestPicker {
-    padding: 16px;
-    border-top: 1px solid var(--border-dark);
+/* Date Picker Popup */
+.datePickerPopup {
+    position: absolute;
+    top: 60px;
+    right: 0;
     background: white;
-    animation: slideDown 0.2s ease-out;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    overflow: hidden;
+    padding: 16px;
 }
 
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
+.datePickerFooter {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.closeDateBtn {
+    background: #222;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Guest Picker */
+.guestPicker {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    z-index: 10;
 }
 
 .guestRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
-}
-
-.guestRow:not(:last-child) {
-    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 24px;
 }
 
 .guestType {
-    font-size: 16px;
     font-weight: 600;
-    color: #222;
-    margin-bottom: 4px;
+    font-size: 16px;
 }
 
 .guestDesc {
@@ -194,7 +156,7 @@
 .guestControls {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
 }
 
 .guestBtn {
@@ -207,27 +169,100 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s;
-}
-
-.guestBtn:hover:not(:disabled) {
-    border-color: #222;
-    background: #f7f7f7;
+    color: #717171;
 }
 
 .guestBtn:disabled {
     opacity: 0.3;
     cursor: not-allowed;
+    border-color: #ebebeb;
+}
+
+.guestBtn:not(:disabled):hover {
+    border-color: #222;
+    color: #222;
 }
 
 .guestCount {
     font-size: 16px;
-    font-weight: 400;
-    min-width: 20px;
+    width: 20px;
     text-align: center;
 }
 
-/* Spinner Animation */
+.closeGuestBtn {
+    width: 100%;
+    padding: 10px;
+    background: #222;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.reserveBtn {
+    width: 100%;
+    background: #FF385C;
+    /* Airbnb Red */
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 16px;
+    transition: background 0.2s;
+}
+
+.reserveBtn:hover {
+    background: #E31C5F;
+}
+
+.disclaimer {
+    text-align: center;
+    font-size: 14px;
+    color: #717171;
+    margin-bottom: 24px;
+}
+
+.priceBreakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #ddd;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #222;
+}
+
+.underline {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #222;
+}
+
+.loadingSpan {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
 .spinner {
     animation: spin 1s linear infinite;
 }
@@ -240,4 +275,11 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+.errorText {
+    color: #c13515;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 8px;
 }

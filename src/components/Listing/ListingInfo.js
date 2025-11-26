@@ -55,14 +55,55 @@ const ListingInfo = ({ listing }) => {
             <div className={styles.amenities}>
                 <h3>What this place offers</h3>
                 <div className={styles.amenityGrid}>
-                    <div>Wifi</div>
-                    <div>Kitchen</div>
-                    <div>Free parking</div>
-                    <div>Pool</div>
-                    <div>Hot tub</div>
-                    <div>Patio or balcony</div>
+                    {listing.amenities?.length > 0 ? (
+                        listing.amenities.map((amenity, index) => (
+                            <div key={index}>{amenity}</div>
+                        ))
+                    ) : (
+                        <>
+                            <div>Wifi</div>
+                            <div>Kitchen</div>
+                            <div>Free parking</div>
+                            <div>Pool</div>
+                            <div>Hot tub</div>
+                            <div>Patio or balcony</div>
+                        </>
+                    )}
                 </div>
                 <button className={styles.showAmenities}>Show all amenities</button>
+            </div>
+
+            <div className={styles.divider}></div>
+
+            <div className={styles.hostSection}>
+                <div className={styles.hostHeader}>
+                    <div className={styles.hostAvatarLarge}>
+                        <img src={listing.host.image} alt={listing.host.name} />
+                    </div>
+                    <div>
+                        <h3>Hosted by {listing.host.name}</h3>
+                        <p className={styles.hostJoined}>Joined December 2023</p>
+                    </div>
+                </div>
+                <div className={styles.hostStats}>
+                    <div className={styles.hostStat}>
+                        <Star size={16} />
+                        <span>12 Reviews</span>
+                    </div>
+                    <div className={styles.hostStat}>
+                        <ShieldCheck size={16} />
+                        <span>Identity verified</span>
+                    </div>
+                    <div className={styles.hostStat}>
+                        <Star size={16} />
+                        <span>Superhost</span>
+                    </div>
+                </div>
+                <div className={styles.hostBio}>
+                    <p>Response rate: 100%</p>
+                    <p>Response time: within an hour</p>
+                    <button className={styles.contactHost}>Contact Host</button>
+                </div>
             </div>
         </div>
     );

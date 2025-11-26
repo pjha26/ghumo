@@ -1,29 +1,59 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Star, ChevronDown, ChevronUp, Loader2, Plus, Minus } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Star, ChevronDown, ChevronUp, Loader2, Plus, Minus, Calendar as CalendarIcon } from 'lucide-react';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
+import { DateRange } from 'react-date-range';
+import { format, differenceInDays, addDays } from 'date-fns';
 import styles from './BookingWidget.module.css';
+
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 
 const BookingWidget = ({ listing }) => {
     const { isSignedIn, user } = useUser();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    // UI States
     const [showGuestPicker, setShowGuestPicker] = useState(false);
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const datePickerRef = useRef(null);
+    const guestPickerRef = useRef(null);
+
+    // State
+    const [dateRange, setDateRange] = useState([
+        {
+            startDate: new Date(),
+            endDate: addDays(new Date(), 5),
+            key: 'selection'
+        }
+    ]);
+
     const [guests, setGuests] = useState({
         adults: 1,
         children: 0,
         infants: 0
     });
 
-    // Mock dates for now - in a real app these would come from a date picker
-    const checkInDate = new Date('2023-10-22');
-    const checkOutDate = new Date('2023-10-27');
-    const nights = 5;
+    // Close pickers when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
+                setShowDatePicker(false);
+            }
+            if (guestPickerRef.current && !guestPickerRef.current.contains(event.target)) {
+                setShowGuestPicker(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
-    // Calculate prices
+    // Calculate nights and prices
+    const nights = differenceInDays(dateRange[0].endDate, dateRange[0].startDate);
     const basePrice = listing.price * nights;
     const cleaningFee = 2500;
     const serviceFee = 3500;
@@ -40,8 +70,6 @@ const BookingWidget = ({ listing }) => {
     };
 
     const handleReserve = async () => {
-        console.log('Reserve clicked, isSignedIn:', isSignedIn);
-
         if (!isSignedIn) {
             router.push('/sign-in');
             return;
@@ -53,45 +81,28 @@ const BookingWidget = ({ listing }) => {
         try {
             const response = await fetch('/api/create-checkout-session', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     listingId: listing.id,
                     listingTitle: listing.title,
-                    startDate: checkInDate.toISOString(),
-                    endDate: checkOutDate.toISOString(),
+                    startDate: dateRange[0].startDate.toISOString(),
+                    endDate: dateRange[0].endDate.toISOString(),
                     totalPrice: totalPrice,
                     guests: guests,
                     nights: nights,
                 }),
             });
 
-            console.log('Response status:', response.status);
-            console.log('Response content-type:', response.headers.get('content-type'));
-
-            // Check if response is JSON
-            const contentType = response.headers.get('content-type');
-            if (!contentType || !contentType.includes('application/json')) {
-                const text = await response.text();
-                console.error('Non-JSON response:', text.substring(0, 500));
-                throw new Error('Server returned an error. Please check your Stripe configuration.');
-            }
-
             const data = await response.json();
 
             if (!response.ok) {
-                console.error('API Error:', data);
                 throw new Error(data.error || 'Failed to create checkout session');
             }
 
-            console.log('Checkout URL received:', data.url);
-
-            // Redirect to Stripe Checkout
             if (data.url) {
                 window.location.href = data.url;
             } else {
-                throw new Error('No checkout URL received from server');
+                throw new Error('No checkout URL received');
             }
 
         } catch (err) {
@@ -120,16 +131,41 @@ const BookingWidget = ({ listing }) => {
                 </div>
 
                 <div className={styles.picker}>
-                    <div className={styles.dates}>
+                    <div className={styles.dates} onClick={() => setShowDatePicker(!showDatePicker)}>
                         <div className={styles.checkIn}>
                             <div className={styles.label}>CHECK-IN</div>
-                            <div className={styles.value}>10/22/2023</div>
+                            <div className={styles.value}>{format(dateRange[0].startDate, 'MM/dd/yyyy')}</div>
                         </div>
                         <div className={styles.checkOut}>
                             <div className={styles.label}>CHECKOUT</div>
-                            <div className={styles.value}>10/27/2023</div>
+                            <div className={styles.value}>{format(dateRange[0].endDate, 'MM/dd/yyyy')}</div>
                         </div>
                     </div>
+
+                    {showDatePicker && (
+                        <div className={styles.datePickerPopup} ref={datePickerRef}>
+                            <DateRange
+                                editableDateInputs={true}
+                                onChange={item => setDateRange([item.selection])}
+                                moveRangeOnFirstSelection={false}
+                                ranges={dateRange}
+                                minDate={new Date()}
+                                rangeColors={['#FF385C']}
+                            />
+                            <div className={styles.datePickerFooter}>
+                                <button
+                                    className={styles.closeDateBtn}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setShowDatePicker(false);
+                                    }}
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
                     <div className={styles.guests} onClick={() => setShowGuestPicker(!showGuestPicker)}>
                         <div className={styles.label}>GUESTS</div>
                         <div className={styles.value}>
@@ -139,75 +175,50 @@ const BookingWidget = ({ listing }) => {
                     </div>
 
                     {showGuestPicker && (
-                        <div className={styles.guestPicker}>
-                            <div className={styles.guestRow}>
-                                <div>
-                                    <div className={styles.guestType}>Adults</div>
-                                    <div className={styles.guestDesc}>Age 13+</div>
+                        <div className={styles.guestPicker} ref={guestPickerRef}>
+                            {['adults', 'children', 'infants'].map((type) => (
+                                <div key={type} className={styles.guestRow}>
+                                    <div>
+                                        <div className={styles.guestType}>
+                                            {type.charAt(0).toUpperCase() + type.slice(1)}
+                                        </div>
+                                        <div className={styles.guestDesc}>
+                                            {type === 'adults' ? 'Age 13+' : type === 'children' ? 'Ages 2-12' : 'Under 2'}
+                                        </div>
+                                    </div>
+                                    <div className={styles.guestControls}>
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleGuestChange(type, 'decrement');
+                                            }}
+                                            disabled={type === 'adults' ? guests.adults <= 1 : guests[type] <= 0}
+                                            className={styles.guestBtn}
+                                        >
+                                            <Minus size={16} />
+                                        </button>
+                                        <span className={styles.guestCount}>{guests[type]}</span>
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleGuestChange(type, 'increment');
+                                            }}
+                                            className={styles.guestBtn}
+                                        >
+                                            <Plus size={16} />
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className={styles.guestControls}>
-                                    <button
-                                        onClick={() => handleGuestChange('adults', 'decrement')}
-                                        disabled={guests.adults <= 1}
-                                        className={styles.guestBtn}
-                                    >
-                                        <Minus size={16} />
-                                    </button>
-                                    <span className={styles.guestCount}>{guests.adults}</span>
-                                    <button
-                                        onClick={() => handleGuestChange('adults', 'increment')}
-                                        className={styles.guestBtn}
-                                    >
-                                        <Plus size={16} />
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className={styles.guestRow}>
-                                <div>
-                                    <div className={styles.guestType}>Children</div>
-                                    <div className={styles.guestDesc}>Ages 2-12</div>
-                                </div>
-                                <div className={styles.guestControls}>
-                                    <button
-                                        onClick={() => handleGuestChange('children', 'decrement')}
-                                        disabled={guests.children <= 0}
-                                        className={styles.guestBtn}
-                                    >
-                                        <Minus size={16} />
-                                    </button>
-                                    <span className={styles.guestCount}>{guests.children}</span>
-                                    <button
-                                        onClick={() => handleGuestChange('children', 'increment')}
-                                        className={styles.guestBtn}
-                                    >
-                                        <Plus size={16} />
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className={styles.guestRow}>
-                                <div>
-                                    <div className={styles.guestType}>Infants</div>
-                                    <div className={styles.guestDesc}>Under 2</div>
-                                </div>
-                                <div className={styles.guestControls}>
-                                    <button
-                                        onClick={() => handleGuestChange('infants', 'decrement')}
-                                        disabled={guests.infants <= 0}
-                                        className={styles.guestBtn}
-                                    >
-                                        <Minus size={16} />
-                                    </button>
-                                    <span className={styles.guestCount}>{guests.infants}</span>
-                                    <button
-                                        onClick={() => handleGuestChange('infants', 'increment')}
-                                        className={styles.guestBtn}
-                                    >
-                                        <Plus size={16} />
-                                    </button>
-                                </div>
-                            </div>
+                            ))}
+                            <button
+                                className={styles.closeGuestBtn}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setShowGuestPicker(false);
+                                }}
+                            >
+                                Close
+                            </button>
                         </div>
                     )}
                 </div>
@@ -216,21 +227,19 @@ const BookingWidget = ({ listing }) => {
                     className={styles.reserveBtn}
                     onClick={handleReserve}
                     disabled={isLoading}
-                    style={{
-                        opacity: isLoading ? 0.7 : 1
-                    }}
+                    style={{ opacity: isLoading ? 0.7 : 1 }}
                 >
                     {isLoading ? (
-                        <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                        <span className={styles.loadingSpan}>
                             <Loader2 className={styles.spinner} size={20} />
-                            Redirecting to payment...
+                            Redirecting...
                         </span>
                     ) : (
                         'Reserve'
                     )}
                 </button>
 
-                {error && <p style={{ color: 'red', marginTop: '10px', fontSize: '14px', textAlign: 'center' }}>{error}</p>}
+                {error && <p className={styles.errorText}>{error}</p>}
 
                 <p className={styles.disclaimer}>You won't be charged yet</p>
 
@@ -241,7 +250,7 @@ const BookingWidget = ({ listing }) => {
                     </div>
                     {guestSurcharge > 0 && (
                         <div className={styles.row}>
-                            <span className={styles.underline}>Extra guest fee ({totalGuests - 2} guests)</span>
+                            <span className={styles.underline}>Extra guest fee</span>
                             <span>₹{guestSurcharge.toLocaleString('en-IN')}</span>
                         </div>
                     )}
