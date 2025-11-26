@@ -32,6 +32,8 @@
     /* Firefox */
     -ms-overflow-style: none;
     /* IE and Edge */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
 .scrollContainer::-webkit-scrollbar {
