@@ -15,13 +15,17 @@ if (!cloudName || !apiKey || !apiSecret) {
     });
 }
 
-cloudinary.config({
-    cloud_name: cloudName,
-    api_key: apiKey,
-    api_secret: apiSecret
-});
-
 export async function POST(request) {
+    if (!cloudName || !apiKey || !apiSecret) {
+        return NextResponse.json({ error: "Server configuration error: Missing Cloudinary credentials" }, { status: 500 });
+    }
+
+    cloudinary.config({
+        cloud_name: cloudName,
+        api_key: apiKey,
+        api_secret: apiSecret
+    });
+
     try {
         const user = await currentUser();
         if (!user) {

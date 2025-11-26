@@ -8,11 +8,13 @@ import { useUser, useClerk } from '@clerk/nextjs';
 import { useState, useRef, useEffect } from 'react';
 import ThemeToggle from '../ThemeToggle';
 
-export default function Header() {
+export default function Header({ currentUser }) {
   const { isSignedIn, user } = useUser();
   const { signOut } = useClerk();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  const profileImage = currentUser?.image || user?.imageUrl;
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -69,7 +71,7 @@ export default function Header() {
               <Menu size={18} />
               <div className={styles.avatar}>
                 {isSignedIn ? (
-                  <img src={user.imageUrl} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
+                  <img src={profileImage} alt="Profile" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
                 ) : (
                   <User size={18} className={styles.userIcon} />
                 )}
