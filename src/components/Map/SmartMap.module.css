@@ -1,0 +1,207 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background: #f7f7f7;
+}
+
+.layerControl {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 200px;
+}
+
+.controlTitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    color: #222;
+}
+
+.layerButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.layerBtn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 2px solid #e5e7eb;
+    background: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #6b7280;
+}
+
+.layerBtn:hover {
+    border-color: #FF385C;
+    color: #FF385C;
+    transform: translateY(-1px);
+}
+
+.layerBtn.active {
+    background: #FF385C;
+    border-color: #FF385C;
+    color: white;
+}
+
+/* VR Modal */
+.vrModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s;
+}
+
+.vrContent {
+    background: white;
+    border-radius: 16px;
+    padding: 0;
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    position: relative;
+    animation: slideUp 0.3s;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s;
+}
+
+.closeBtn:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.vrViewer {
+    padding: 40px;
+    text-align: center;
+}
+
+.vrIcon {
+    color: #FF385C;
+    margin-bottom: 16px;
+}
+
+.vrViewer h3 {
+    font-size: 24px;
+    margin: 0 0 8px 0;
+    color: #222;
+}
+
+.vrViewer p {
+    color: #717171;
+    margin: 0 0 24px 0;
+}
+
+.vrPlaceholder {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background: #f7f7f7;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.vrOverlay {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .layerControl {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+    }
+
+    .layerButtons {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .layerBtn {
+        flex: 1;
+        min-width: calc(50% - 4px);
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+    .vrContent {
+        width: 95%;
+    }
+
+    .vrViewer {
+        padding: 20px;
+    }
+
+    .vrPlaceholder {
+        height: 300px;
+    }
+}

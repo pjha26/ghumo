@@ -84,6 +84,7 @@ export default function Header({ currentUser }) {
                       <div className={styles.menuItem} style={{ fontWeight: 600 }}>Notifications</div>
                       <Link href="/trips" className={styles.menuItem} style={{ fontWeight: 600, display: 'block', textDecoration: 'none', color: 'inherit' }}>My Trips</Link>
                       <Link href="/favorites" className={styles.menuItem} style={{ fontWeight: 600, display: 'block', textDecoration: 'none', color: 'inherit' }}>Favorites</Link>
+                      <Link href="/map" className={styles.menuItem} style={{ fontWeight: 600, display: 'block', textDecoration: 'none', color: 'inherit' }}>🗺️ Smart Map</Link>
                       <div style={{ height: '1px', backgroundColor: '#ddd', margin: '8px 0' }}></div>
                       <Link href="/profile" className={styles.menuItem} style={{ fontWeight: 600, display: 'block', textDecoration: 'none', color: 'inherit' }}>Account</Link>
                       <div className={styles.menuItem}>Help Center</div>

@@ -1,0 +1,118 @@
+.mapContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.popup {
+    min-width: 200px;
+}
+
+.popup h4 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: #222;
+}
+
+.popup p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #717171;
+}
+
+.safetyBar {
+    width: 100%;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.safetyFill {
+    height: 100%;
+    transition: width 0.3s;
+    border-radius: 4px;
+}
+
+.temp {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #3b82f6 !important;
+    margin: 8px 0 !important;
+}
+
+.weatherDetails {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+.weatherDetails span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Listing Popup */
+.listingPopup {
+    min-width: 250px;
+}
+
+.popupImage {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.listingPopup h4 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+}
+
+.price {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #FF385C !important;
+    margin: 8px 0 !important;
+}
+
+.rating {
+    font-size: 14px !important;
+    color: #222 !important;
+    margin: 4px 0 !important;
+}
+
+.transport {
+    font-size: 13px !important;
+    color: #717171 !important;
+    margin: 8px 0 !important;
+}
+
+.vrBtn {
+    width: 100%;
+    padding: 10px;
+    background: #FF385C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background 0.2s;
+}
+
+.vrBtn:hover {
+    background: #E31C5F;
+}
+
+/* Custom Marker Styles */
+:global(.custom-marker) {
+    background: transparent !important;
+    border: none !important;
+}
