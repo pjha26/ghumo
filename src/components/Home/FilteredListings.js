@@ -77,7 +77,7 @@ export default function FilteredListings({ initialListings }) {
 
     return (
         <>
-            <div className={styles.filterBar}>
+            <div id="listings-section" className={styles.filterBar}>
                 <div className="container">
                     <div className={styles.filterContent}>
                         <SearchBar />
