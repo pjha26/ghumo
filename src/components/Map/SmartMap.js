@@ -11,9 +11,9 @@ const MapView = dynamic(() => import('./MapView'), { ssr: false });
 export default function SmartMap({ listings = [] }) {
     const [activeLayers, setActiveLayers] = useState({
         heatmap: true,
-        safety: false,
-        weather: false,
-        transport: false
+        safety: true,
+        weather: true,
+        transport: true
     });
 
     const [selectedListing, setSelectedListing] = useState(null);

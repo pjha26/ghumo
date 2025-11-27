@@ -34,6 +34,19 @@ export const useFilterStore = create((set) => ({
     openFilterModal: () => set({ isFilterModalOpen: true }),
     closeFilterModal: () => set({ isFilterModalOpen: false }),
 
+    // Advanced Filters
+    workTravelScore: 0,
+    setWorkTravelScore: (score) => set({ workTravelScore: score }),
+
+    budgetComfortWeight: 0.5,
+    setBudgetComfortWeight: (weight) => set({ budgetComfortWeight: weight }),
+
+    petFriendlyScore: 0,
+    setPetFriendlyScore: (score) => set({ petFriendlyScore: score }),
+
+    travelMode: 'none',
+    setTravelMode: (mode) => set({ travelMode: mode }),
+
     // Reset all filters
     resetFilters: () => set({
         searchQuery: '',
@@ -43,6 +56,10 @@ export const useFilterStore = create((set) => ({
         propertyTypes: [],
         minRating: 0,
         selectedAmenities: [],
+        workTravelScore: 0,
+        budgetComfortWeight: 0.5,
+        petFriendlyScore: 0,
+        travelMode: 'none',
     }),
 
     // Get active filter count
@@ -55,6 +72,10 @@ export const useFilterStore = create((set) => ({
         if (state.propertyTypes.length > 0) count++;
         if (state.minRating > 0) count++;
         if (state.selectedAmenities.length > 0) count++;
+        if (state.workTravelScore > 0) count++;
+        if (state.budgetComfortWeight !== 0.5) count++;
+        if (state.petFriendlyScore > 0) count++;
+        if (state.travelMode !== 'none') count++;
         return count;
     },
 }));

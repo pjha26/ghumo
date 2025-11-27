@@ -42,6 +42,27 @@ model Listing {
   images       String[]
   amenities    String[]
   maxGuests    Int           @default(2)
+  
+  // Work-from-Travel Score Fields
+  wifiStrength      Float   @default(5)
+  noiseLevel        Float   @default(5)
+  workspaceRating   Float   @default(5)
+  
+  // Pet-Friendly Fields
+  petAllowed        Boolean @default(false)
+  petSize           String? // "small", "medium", "large", "any"
+  petAmenities      String[] @default([])
+  nearbyParks       Boolean @default(false)
+  
+  // Comfort Metrics
+  spaceSize         Float?  // in sq ft
+  luxuryAmenities   String[] @default([])
+  
+  // Travel Mode Scores
+  romanticScore     Float   @default(0)
+  familyScore       Float   @default(0)
+  adventureScore    Float   @default(0)
+  
   hostId       String        @db.ObjectId
   host         User          @relation(fields: [hostId], references: [id])
   reservations Reservation[]

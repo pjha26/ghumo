@@ -20,6 +20,10 @@ export default function FilteredListings({ initialListings }) {
         propertyTypes,
         minRating,
         selectedAmenities,
+        workTravelScore,
+        budgetComfortWeight,
+        petFriendlyScore,
+        travelMode,
         openFilterModal,
     } = useFilterStore();
 
@@ -39,6 +43,12 @@ export default function FilteredListings({ initialListings }) {
                 if (minRating > 0) params.append('minRating', minRating);
                 if (selectedAmenities.length > 0) params.append('amenities', selectedAmenities.join(','));
 
+                // Advanced Filters
+                if (workTravelScore > 0) params.append('workTravelScore', workTravelScore);
+                if (budgetComfortWeight !== 0.5) params.append('budgetComfortWeight', budgetComfortWeight);
+                if (petFriendlyScore > 0) params.append('petFriendlyScore', petFriendlyScore);
+                if (travelMode !== 'none') params.append('travelMode', travelMode);
+
                 const response = await fetch(`/api/listings/search?${params.toString()}`);
                 const data = await response.json();
                 setListings(data.listings || []);
@@ -50,7 +60,7 @@ export default function FilteredListings({ initialListings }) {
         };
 
         fetchListings();
-    }, [searchQuery, priceRange, location, guests, propertyTypes, minRating, selectedAmenities]);
+    }, [searchQuery, priceRange, location, guests, propertyTypes, minRating, selectedAmenities, workTravelScore, budgetComfortWeight, petFriendlyScore, travelMode]);
 
     const activeFilterCount =
         (searchQuery ? 1 : 0) +
@@ -59,7 +69,11 @@ export default function FilteredListings({ initialListings }) {
         (guests > 1 ? 1 : 0) +
         propertyTypes.length +
         (minRating > 0 ? 1 : 0) +
-        selectedAmenities.length;
+        selectedAmenities.length +
+        (workTravelScore > 0 ? 1 : 0) +
+        (budgetComfortWeight !== 0.5 ? 1 : 0) +
+        (petFriendlyScore > 0 ? 1 : 0) +
+        (travelMode !== 'none' ? 1 : 0);
 
     return (
         <>

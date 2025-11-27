@@ -95,20 +95,45 @@
 
 .vrBtn {
     width: 100%;
-    padding: 10px;
-    background: #FF385C;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #FF385C 0%, #E31C5F 100%);
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
     margin-top: 12px;
-    transition: background 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(255, 56, 92, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.vrBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.vrBtn:hover::before {
+    left: 100%;
 }
 
 .vrBtn:hover {
-    background: #E31C5F;
+    background: linear-gradient(135deg, #E31C5F 0%, #C71C4F 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 56, 92, 0.5);
+}
+
+.vrBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(255, 56, 92, 0.4);
 }
 
 /* Custom Marker Styles */

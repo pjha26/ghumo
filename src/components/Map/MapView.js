@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet.heat';
 import {
     touristDensityData,
     safetyZones,
@@ -16,12 +15,14 @@ import {
 import styles from './MapView.module.css';
 
 // Fix for default marker icon
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-    iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-});
+if (typeof window !== 'undefined') {
+    delete L.Icon.Default.prototype._getIconUrl;
+    L.Icon.Default.mergeOptions({
+        iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    });
+}
 
 // Custom marker icons
 const createCustomIcon = (color) => {
@@ -39,6 +40,8 @@ function HeatmapLayer({ show }) {
     const heatLayerRef = useRef(null);
 
     useEffect(() => {
+        if (typeof window === 'undefined') return;
+
         if (!show) {
             if (heatLayerRef.current) {
                 map.removeLayer(heatLayerRef.current);
@@ -47,18 +50,23 @@ function HeatmapLayer({ show }) {
             return;
         }
 
-        if (!heatLayerRef.current && window.L && window.L.heatLayer) {
-            heatLayerRef.current = L.heatLayer(touristDensityData, {
-                radius: 50,
-                blur: 40,
-                maxZoom: 13,
-                max: 1.0,
-                gradient: {
-                    0.0: 'blue',
-                    0.5: 'yellow',
-                    1.0: 'red'
+        // Dynamically import leaflet.heat on client side
+        if (!heatLayerRef.current) {
+            import('leaflet.heat').then(() => {
+                if (window.L && window.L.heatLayer && !heatLayerRef.current) {
+                    heatLayerRef.current = window.L.heatLayer(touristDensityData, {
+                        radius: 50,
+                        blur: 40,
+                        maxZoom: 13,
+                        max: 1.0,
+                        gradient: {
+                            0.0: 'blue',
+                            0.5: 'yellow',
+                            1.0: 'red'
+                        }
+                    }).addTo(map);
                 }
-            }).addTo(map);
+            });
         }
 
         return () => {

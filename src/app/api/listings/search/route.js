@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { calculateAllScores, calculateBudgetComfortScore } from '@/lib/filterScores';
 
 export async function GET(request) {
     try {
@@ -14,6 +15,12 @@ export async function GET(request) {
         const types = searchParams.get('types')?.split(',').filter(Boolean) || [];
         const minRating = parseFloat(searchParams.get('minRating')) || 0;
         const amenities = searchParams.get('amenities')?.split(',').filter(Boolean) || [];
+
+        // Advanced Filters
+        const workTravelScore = parseFloat(searchParams.get('workTravelScore')) || 0;
+        const petFriendlyScore = parseFloat(searchParams.get('petFriendlyScore')) || 0;
+        const budgetComfortWeight = parseFloat(searchParams.get('budgetComfortWeight')); // Can be 0
+        const travelMode = searchParams.get('travelMode') || 'none';
 
         // Build dynamic Prisma query
         const where = {};
@@ -58,13 +65,47 @@ export async function GET(request) {
             where.amenities = { hasEvery: amenities };
         }
 
+        // Travel Mode Filters (using stored scores)
+        if (travelMode === 'romantic') {
+            where.romanticScore = { gte: 7 }; // Threshold for romantic
+        } else if (travelMode === 'family') {
+            where.familyScore = { gte: 7 }; // Threshold for family
+        } else if (travelMode === 'adventure') {
+            where.adventureScore = { gte: 7 }; // Threshold for adventure
+        }
+
         // Execute query
-        const listings = await prisma.listing.findMany({
+        let listings = await prisma.listing.findMany({
             where,
             orderBy: {
                 rating: 'desc',
             },
         });
+
+        // Post-processing for calculated scores
+        listings = listings.map(listing => calculateAllScores(listing));
+
+        // Filter by Work-from-Travel Score
+        if (workTravelScore > 0) {
+            listings = listings.filter(l => l.workTravelScore >= workTravelScore);
+        }
+
+        // Filter by Pet-Friendly Score
+        if (petFriendlyScore > 0) {
+            listings = listings.filter(l => l.petFriendlyScore >= petFriendlyScore);
+        }
+
+        // Sort by Budget vs Comfort if weight is set (and not default 0.5)
+        if (budgetComfortWeight !== undefined && !isNaN(budgetComfortWeight) && budgetComfortWeight !== 0.5) {
+            // Calculate max price in current result set for normalization
+            const currentMaxPrice = Math.max(...listings.map(l => l.price), 1000);
+
+            listings.sort((a, b) => {
+                const scoreA = calculateBudgetComfortScore(a.price, currentMaxPrice, a.comfortScore, budgetComfortWeight);
+                const scoreB = calculateBudgetComfortScore(b.price, currentMaxPrice, b.comfortScore, budgetComfortWeight);
+                return scoreB - scoreA; // Descending
+            });
+        }
 
         return NextResponse.json({ listings, count: listings.length });
     } catch (error) {
