@@ -1,5 +1,6 @@
 // Translation data for multi-language support
 // Supports 8 languages: English, Spanish, French, German, Hindi, Japanese, Chinese, Kannada
+// Rebranded to "Ghumo" with simplified, functional options
 
 export const translations = {
     en: {
@@ -10,37 +11,28 @@ export const translations = {
                 title: 'Support',
                 links: [
                     'Help Center',
-                    'AirCover',
-                    'Anti-discrimination',
-                    'Disability support',
-                    'Cancellation options',
-                    'Report neighborhood concern'
+                    'Contact Us',
+                    'Cancellation Policy'
                 ]
             },
             hosting: {
                 title: 'Hosting',
                 links: [
-                    'Airbnb your home',
-                    'AirCover for Hosts',
-                    'Hosting resources',
-                    'Community forum',
-                    'Hosting responsibly',
-                    'Airbnb-friendly apartments'
+                    'List your property',
+                    'Host resources',
+                    'Community forum'
                 ]
             },
-            airbnb: {
-                title: 'Airbnb',
+            ghumo: {
+                title: 'Ghumo',
                 links: [
-                    'Newsroom',
-                    'New features',
+                    'About us',
                     'Careers',
-                    'Investors',
-                    'Gift cards',
-                    'Airbnb.org emergency stays'
+                    'Newsroom'
                 ]
             },
             bottom: {
-                copyright: '© 2023 Airbnb, Inc.',
+                copyright: '© 2023 Ghumo, Inc.',
                 privacy: 'Privacy',
                 terms: 'Terms',
                 sitemap: 'Sitemap'
@@ -55,37 +47,28 @@ export const translations = {
                 title: 'Asistencia',
                 links: [
                     'Centro de ayuda',
-                    'AirCover',
-                    'Antidiscriminación',
-                    'Apoyo a la discapacidad',
-                    'Opciones de cancelación',
-                    'Informar sobre un problema del barrio'
+                    'Contáctenos',
+                    'Política de cancelación'
                 ]
             },
             hosting: {
                 title: 'Anfitrión',
                 links: [
-                    'Pon tu casa en Airbnb',
-                    'AirCover para anfitriones',
+                    'Anuncia tu propiedad',
                     'Recursos para anfitriones',
-                    'Foro de la comunidad',
-                    'Ser anfitrión responsable',
-                    'Apartamentos aptos para Airbnb'
+                    'Foro de la comunidad'
                 ]
             },
-            airbnb: {
-                title: 'Airbnb',
+            ghumo: {
+                title: 'Ghumo',
                 links: [
-                    'Sala de prensa',
-                    'Nuevas funciones',
+                    'Sobre nosotros',
                     'Empleo',
-                    'Inversores',
-                    'Tarjetas regalo',
-                    'Estancias de emergencia Airbnb.org'
+                    'Sala de prensa'
                 ]
             },
             bottom: {
-                copyright: '© 2023 Airbnb, Inc.',
+                copyright: '© 2023 Ghumo, Inc.',
                 privacy: 'Privacidad',
                 terms: 'Términos',
                 sitemap: 'Mapa del sitio'
@@ -100,37 +83,28 @@ export const translations = {
                 title: 'Assistance',
                 links: [
                     'Centre d\'aide',
-                    'AirCover',
-                    'Lutte contre la discrimination',
-                    'Aide en matière de handicap',
-                    'Options d\'annulation',
-                    'Signaler un problème de voisinage'
+                    'Nous contacter',
+                    'Politique d\'annulation'
                 ]
             },
             hosting: {
                 title: 'Hébergement',
                 links: [
-                    'Mettez votre logement sur Airbnb',
-                    'AirCover pour les hôtes',
+                    'Listez votre propriété',
                     'Ressources pour les hôtes',
-                    'Forum de la communauté',
-                    'Héberger de manière responsable',
-                    'Appartements compatibles avec Airbnb'
+                    'Forum de la communauté'
                 ]
             },
-            airbnb: {
-                title: 'Airbnb',
+            ghumo: {
+                title: 'Ghumo',
                 links: [
-                    'Salle de presse',
-                    'Nouvelles fonctionnalités',
+                    'À propos',
                     'Carrières',
-                    'Investisseurs',
-                    'Cartes cadeaux',
-                    'Séjours d\'urgence Airbnb.org'
+                    'Salle de presse'
                 ]
             },
             bottom: {
-                copyright: '© 2023 Airbnb, Inc.',
+                copyright: '© 2023 Ghumo, Inc.',
                 privacy: 'Confidentialité',
                 terms: 'Conditions',
                 sitemap: 'Plan du site'
@@ -145,37 +119,28 @@ export const translations = {
                 title: 'Support',
                 links: [
                     'Hilfecenter',
-                    'AirCover',
-                    'Antidiskriminierung',
-                    'Unterstützung für Menschen mit Behinderung',
-                    'Stornierungsoptionen',
-                    'Nachbarschaftsbedenken melden'
+                    'Kontaktieren Sie uns',
+                    'Stornierungsbedingungen'
                 ]
             },
             hosting: {
                 title: 'Gastgeben',
                 links: [
-                    'Deine Unterkunft bei Airbnb',
-                    'AirCover für Gastgeber',
+                    'Ihre Unterkunft anbieten',
                     'Ressourcen für Gastgeber',
-                    'Community-Forum',
-                    'Verantwortungsvoll gastgeben',
-                    'Airbnb-freundliche Apartments'
+                    'Community-Forum'
                 ]
             },
-            airbnb: {
-                title: 'Airbnb',
+            ghumo: {
+                title: 'Ghumo',
                 links: [
-                    'Newsroom',
-                    'Neue Funktionen',
+                    'Über uns',
                     'Karriere',
-                    'Investoren',
-                    'Geschenkkarten',
-                    'Airbnb.org Notunterkünfte'
+                    'Newsroom'
                 ]
             },
             bottom: {
-                copyright: '© 2023 Airbnb, Inc.',
+                copyright: '© 2023 Ghumo, Inc.',
                 privacy: 'Datenschutz',
                 terms: 'Nutzungsbedingungen',
                 sitemap: 'Sitemap'
@@ -190,37 +155,28 @@ export const translations = {
                 title: 'सहायता',
                 links: [
                     'सहायता केंद्र',
-                    'एयरकवर',
-                    'भेदभाव विरोधी',
-                    'विकलांगता सहायता',
-                    'रद्दीकरण विकल्प',
-                    'पड़ोस की चिंता रिपोर्ट करें'
+                    'हमसे संपर्क करें',
+                    'रद्दीकरण नीति'
                 ]
             },
             hosting: {
                 title: 'होस्टिंग',
                 links: [
-                    'अपना घर Airbnb पर दें',
-                    'मेजबानों के लिए एयरकवर',
-                    'होस्टिंग संसाधन',
-                    'समुदाय मंच',
-                    'जिम्मेदारी से होस्ट करें',
-                    'Airbnb-अनुकूल अपार्टमेंट'
+                    'अपनी संपत्ति सूचीबद्ध करें',
+                    'होस्ट संसाधन',
+                    'समुदाय मंच'
                 ]
             },
-            airbnb: {
-                title: 'Airbnb',
+            ghumo: {
+                title: 'घूमो',
                 links: [
-                    'न्यूज़रूम',
-                    'नई सुविधाएँ',
+                    'हमारे बारे में',
                     'करियर',
-                    'निवेशक',
-                    'उपहार कार्ड',
-                    'Airbnb.org आपातकालीन प्रवास'
+                    'न्यूज़रूम'
                 ]
             },
             bottom: {
-                copyright: '© 2023 Airbnb, Inc.',
+                copyright: '© 2023 घूमो, Inc.',
                 privacy: 'गोपनीयता',
                 terms: 'शर्तें',
                 sitemap: 'साइटमैप'
@@ -235,37 +191,28 @@ export const translations = {
                 title: 'サポート',
                 links: [
                     'ヘルプセンター',
-                    'AirCover',
-                    '差別撲滅',
-                    '障がいのあるゲストへのサポート',
-                    'キャンセルオプション',
-                    '近隣への懸念を報告する'
+                    'お問い合わせ',
+                    'キャンセルポリシー'
                 ]
             },
             hosting: {
                 title: 'ホスティング',
                 links: [
-                    'お部屋をAirbnbに掲載',
-                    'ホストのためのAirCover',
-                    'ホスティングリソース',
-                    'コミュニティフォーラム',
-                    '責任あるホスティング',
-                    'Airbnb対応アパート'
+                    'お部屋を掲載',
+                    'ホストリソース',
+                    'コミュニティフォーラム'
                 ]
             },
-            airbnb: {
-                title: 'Airbnb',
+            ghumo: {
+                title: 'Ghumo',
                 links: [
-                    'ニュースルーム',
-                    '新機能',
+                    '会社概要',
                     '採用情報',
-                    '投資家向け情報',
-                    'ギフトカード',
-                    'Airbnb.org緊急宿泊施設'
+                    'ニュースルーム'
                 ]
             },
             bottom: {
-                copyright: '© 2023 Airbnb, Inc.',
+                copyright: '© 2023 Ghumo, Inc.',
                 privacy: 'プライバシー',
                 terms: '利用規約',
                 sitemap: 'サイトマップ'
@@ -280,37 +227,28 @@ export const translations = {
                 title: '支持',
                 links: [
                     '帮助中心',
-                    'AirCover',
-                    '反歧视',
-                    '残障支持',
-                    '取消选项',
-                    '报告社区问题'
+                    '联系我们',
+                    '取消政策'
                 ]
             },
             hosting: {
                 title: '房东',
                 links: [
-                    '出租您的房源',
-                    '房东AirCover',
+                    '列出您的房产',
                     '房东资源',
-                    '社区论坛',
-                    '负责任的房东',
-                    'Airbnb友好型公寓'
+                    '社区论坛'
                 ]
             },
-            airbnb: {
-                title: 'Airbnb',
+            ghumo: {
+                title: 'Ghumo',
                 links: [
-                    '新闻编辑室',
-                    '新功能',
+                    '关于我们',
                     '招聘',
-                    '投资者',
-                    '礼品卡',
-                    'Airbnb.org紧急住宿'
+                    '新闻编辑室'
                 ]
             },
             bottom: {
-                copyright: '© 2023 Airbnb, Inc.',
+                copyright: '© 2023 Ghumo, Inc.',
                 privacy: '隐私',
                 terms: '条款',
                 sitemap: '网站地图'
@@ -325,37 +263,28 @@ export const translations = {
                 title: 'ಬೆಂಬಲ',
                 links: [
                     'ಸಹಾಯ ಕೇಂದ್ರ',
-                    'ಏರ್‌ಕವರ್',
-                    'ತಾರತಮ್ಯ ವಿರೋಧಿ',
-                    'ವಿಕಲಾಂಗ ಬೆಂಬಲ',
-                    'ರದ್ದತಿ ಆಯ್ಕೆಗಳು',
-                    'ನೆರೆಹೊರೆಯ ಕಾಳಜಿಯನ್ನು ವರದಿ ಮಾಡಿ'
+                    'ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ',
+                    'ರದ್ದತಿ ನೀತಿ'
                 ]
             },
             hosting: {
                 title: 'ಹೋಸ್ಟಿಂಗ್',
                 links: [
-                    'ನಿಮ್ಮ ಮನೆಯನ್ನು Airbnb ನಲ್ಲಿ ಇರಿಸಿ',
-                    'ಹೋಸ್ಟ್‌ಗಳಿಗಾಗಿ ಏರ್‌ಕವರ್',
-                    'ಹೋಸ್ಟಿಂಗ್ ಸಂಪನ್ಮೂಲಗಳು',
-                    'ಸಮುದಾಯ ವೇದಿಕೆ',
-                    'ಜವಾಬ್ದಾರಿಯುತವಾಗಿ ಹೋಸ್ಟ್ ಮಾಡುವುದು',
-                    'Airbnb-ಸ್ನೇಹಿ ಅಪಾರ್ಟ್‌ಮೆಂಟ್‌ಗಳು'
+                    'ನಿಮ್ಮ ಆಸ್ತಿಯನ್ನು ಪಟ್ಟಿ ಮಾಡಿ',
+                    'ಹೋಸ್ಟ್ ಸಂಪನ್ಮೂಲಗಳು',
+                    'ಸಮುದಾಯ ವೇದಿಕೆ'
                 ]
             },
-            airbnb: {
-                title: 'Airbnb',
+            ghumo: {
+                title: 'ಘೂಮೋ',
                 links: [
-                    'ಸುದ್ದಿ ಕೊಠಡಿ',
-                    'ಹೊಸ ವೈಶಿಷ್ಟ್ಯಗಳು',
+                    'ನಮ್ಮ ಬಗ್ಗೆ',
                     'ವೃತ್ತಿಗಳು',
-                    'ಹೂಡಿಕೆದಾರರು',
-                    'ಉಡುಗೊರೆ ಕಾರ್ಡ್‌ಗಳು',
-                    'Airbnb.org ತುರ್ತು ವಸತಿಗಳು'
+                    'ಸುದ್ದಿ ಕೊಠಡಿ'
                 ]
             },
             bottom: {
-                copyright: '© 2023 Airbnb, Inc.',
+                copyright: '© 2023 ಘೂಮೋ, Inc.',
                 privacy: 'ಗೌಪ್ಯತೆ',
                 terms: 'ನಿಯಮಗಳು',
                 sitemap: 'ಸೈಟ್‌ಮ್ಯಾಪ್'

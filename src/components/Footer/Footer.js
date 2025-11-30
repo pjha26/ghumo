@@ -59,11 +59,11 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Airbnb Section */}
+                    {/* Ghumo Section */}
                     <div className={styles.linkColumn}>
-                        <h4>{t.footer.airbnb.title}</h4>
+                        <h4>{t.footer.ghumo.title}</h4>
                         <ul>
-                            {t.footer.airbnb.links.map((link, index) => (
+                            {t.footer.ghumo.links.map((link, index) => (
                                 <li key={index}>
                                     <a href="#">{link}</a>
                                 </li>
