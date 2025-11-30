@@ -18,7 +18,7 @@ export const TextReveal = ({
     staggerChildren = 0.1
 }) => {
     const ref = useRef(null);
-    const isInView = useInView(ref, { margin: "-100px" });
+    const isInView = useInView(ref, { once: true, margin: "-100px" });
 
     const words = text.split(' ');
 
@@ -53,16 +53,10 @@ export const TextReveal = ({
     return (
         <motion.div
             ref={ref}
-            key={text}
             variants={container}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             className={cn(className)}
-            style={{
-                display: 'block',
-                lineHeight: '1.2',
-                minHeight: '4.2rem'
-            }}
         >
             {words.map((word, index) => (
                 <motion.span

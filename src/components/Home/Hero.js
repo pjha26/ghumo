@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, EffectFade, Navigation } from 'swiper/modules';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Hero.module.css';
 import TextReveal from '@/components/ui/TextReveal';
 import FadeIn from '@/components/ui/FadeIn';
@@ -41,6 +41,7 @@ const slides = [
 const Hero = () => {
     const router = useRouter();
     const { isSignedIn } = useUser();
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const handleAction = () => {
         if (isSignedIn) {
@@ -69,8 +70,9 @@ const Hero = () => {
                 navigation={true}
                 modules={[Autoplay, Pagination, EffectFade, Navigation]}
                 className={styles.swiper}
+                onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
             >
-                {slides.map((slide) => (
+                {slides.map((slide, index) => (
                     <SwiperSlide key={slide.id}>
                         <motion.div
                             className={styles.slideContent}
@@ -81,54 +83,66 @@ const Hero = () => {
                         >
                             <div className={styles.overlay}>
                                 <div className={styles.textContent}>
-                                    <TextReveal
-                                        text={slide.title}
-                                        className={styles.title}
-                                        delay={0.2}
-                                        staggerChildren={0.08}
-                                    />
-
-                                    <FadeIn
-                                        delay={0.6}
-                                        direction="up"
-                                        className={styles.subtitle}
-                                    >
-                                        {slide.subtitle}
-                                    </FadeIn>
-
-                                    <FadeIn
-                                        delay={0.9}
-                                        direction="up"
-                                        className={styles.buttonGroup}
-                                    >
-                                        {!isSignedIn && (
-                                            <>
-                                                <AnimatedButton
-                                                    onClick={() => router.push('/sign-up')}
-                                                    variant="primary"
-                                                    magnetic
-                                                >
-                                                    Sign Up
-                                                </AnimatedButton>
-                                                <AnimatedButton
-                                                    onClick={() => router.push('/sign-in')}
-                                                    variant="secondary"
-                                                    magnetic
-                                                >
-                                                    Log In
-                                                </AnimatedButton>
-                                            </>
-                                        )}
-                                        {isSignedIn && (
-                                            <AnimatedButton
-                                                onClick={handleAction}
-                                                variant="primary"
-                                                magnetic
+                                    <AnimatePresence mode="wait">
+                                        {activeIndex === index && (
+                                            <motion.div
+                                                key={`text-${slide.id}`}
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                transition={{ duration: 0.3 }}
                                             >
-                                                Explore Now
-                                            </AnimatedButton>
+                                                <TextReveal
+                                                    text={slide.title}
+                                                    className={styles.title}
+                                                    delay={0.2}
+                                                    staggerChildren={0.08}
+                                                />
+
+                                                <FadeIn
+                                                    delay={0.6}
+                                                    direction="up"
+                                                    className={styles.subtitle}
+                                                >
+                                                    {slide.subtitle}
+                                                </FadeIn>
+
+                                                <FadeIn
+                                                    delay={0.9}
+                                                    direction="up"
+                                                    className={styles.buttonGroup}
+                                                >
+                                                    {!isSignedIn && (
+                                                        <>
+                                                            <AnimatedButton
+                                                                onClick={() => router.push('/sign-up')}
+                                                                variant="primary"
+                                                                magnetic
+                                                            >
+                                                                Sign Up
+                                                            </AnimatedButton>
+                                                            <AnimatedButton
+                                                                onClick={() => router.push('/sign-in')}
+                                                                variant="secondary"
+                                                                magnetic
+                                                            >
+                                                                Log In
+                                                            </AnimatedButton>
+                                                        </>
+                                                    )}
+                                                    {isSignedIn && (
+                                                        <AnimatedButton
+                                                            onClick={handleAction}
+                                                            variant="primary"
+                                                            magnetic
+                                                        >
+                                                            Explore Now
+                                                        </AnimatedButton>
+                                                    )}
+                                                </FadeIn>
+                                            </motion.div>
                                         )}
-                                    </FadeIn>
+                                    </AnimatePresence>
                                 </div>
                             </div>
                         </motion.div>
