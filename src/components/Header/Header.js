@@ -96,6 +96,11 @@ export default function Header({ currentUser }) {
                   <div className={styles.dropdown}>
                     {isSignedIn ? (
                       <>
+                        {currentUser?.isAdmin && (
+                          <Link href="/admin" className={styles.menuItem} onClick={() => setIsOpen(false)} style={{ fontWeight: 600, display: 'block', textDecoration: 'none', color: '#FF385C' }}>
+                            📊 Admin Dashboard
+                          </Link>
+                        )}
                         <div className={styles.menuItem} style={{ fontWeight: 600 }}>Messages</div>
                         <div className={styles.menuItem} style={{ fontWeight: 600 }}>Notifications</div>
                         <Link href="/trips" className={styles.menuItem} onClick={() => setIsOpen(false)} style={{ fontWeight: 600, display: 'block', textDecoration: 'none', color: 'inherit' }}>My Trips</Link>

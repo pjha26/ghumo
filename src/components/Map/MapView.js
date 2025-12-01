@@ -1,15 +1,13 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {
     touristDensityData,
     safetyZones,
-    mockWeatherData,
     transportationData,
-    getWeatherIcon,
     findNearestTransport
 } from '@/lib/mapData';
 import styles from './MapView.module.css';
@@ -80,9 +78,74 @@ function HeatmapLayer({ show }) {
     return null;
 }
 
+// Weather Code to Emoji Mapper
+function getWeatherEmoji(code) {
+    if (code === 0) return '☀️'; // Clear sky
+    if (code >= 1 && code <= 3) return '⛅'; // Partly cloudy
+    if (code >= 45 && code <= 48) return '🌫️'; // Fog
+    if (code >= 51 && code <= 67) return '🌧️'; // Drizzle/Rain
+    if (code >= 71 && code <= 77) return '❄️'; // Snow
+    if (code >= 80 && code <= 82) return '🌦️'; // Rain showers
+    if (code >= 95 && code <= 99) return '⛈️'; // Thunderstorm
+    return '🌡️';
+}
+
+// Weather Condition Text Mapper
+function getWeatherCondition(code) {
+    if (code === 0) return 'Clear sky';
+    if (code >= 1 && code <= 3) return 'Partly cloudy';
+    if (code >= 45 && code <= 48) return 'Foggy';
+    if (code >= 51 && code <= 67) return 'Rainy';
+    if (code >= 71 && code <= 77) return 'Snowy';
+    if (code >= 80 && code <= 82) return 'Showers';
+    if (code >= 95 && code <= 99) return 'Thunderstorm';
+    return 'Unknown';
+}
+
+const WEATHER_LOCATIONS = [
+    { city: 'Delhi', lat: 28.6139, lng: 77.2090 },
+    { city: 'Mumbai', lat: 19.0760, lng: 72.8777 },
+    { city: 'Bangalore', lat: 12.9716, lng: 77.5946 },
+    { city: 'Chennai', lat: 13.0827, lng: 80.2707 },
+    { city: 'Kolkata', lat: 22.5726, lng: 88.3639 },
+    { city: 'Ahmedabad', lat: 23.0225, lng: 72.5714 },
+    { city: 'Hyderabad', lat: 17.3850, lng: 78.4867 },
+    { city: 'Pune', lat: 18.5204, lng: 73.8567 }
+];
+
 export default function MapView({ listings, activeLayers, onMarkerClick, onVRClick }) {
     const center = [20.5937, 78.9629]; // Center of India
     const zoom = 5;
+    const [weatherData, setWeatherData] = useState([]);
+
+    useEffect(() => {
+        async function fetchWeather() {
+            try {
+                const promises = WEATHER_LOCATIONS.map(async (loc) => {
+                    const res = await fetch(
+                        `https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lng}&current_weather=true`
+                    );
+                    const data = await res.json();
+                    return {
+                        ...loc,
+                        temp: data.current_weather.temperature,
+                        windSpeed: data.current_weather.windspeed,
+                        condition: getWeatherCondition(data.current_weather.weathercode),
+                        icon: getWeatherEmoji(data.current_weather.weathercode)
+                    };
+                });
+
+                const results = await Promise.all(promises);
+                setWeatherData(results);
+            } catch (error) {
+                console.error("Failed to fetch weather data:", error);
+            }
+        }
+
+        if (activeLayers.weather) {
+            fetchWeather();
+        }
+    }, [activeLayers.weather]);
 
     return (
         <div className={styles.mapContainer}>
@@ -129,30 +192,24 @@ export default function MapView({ listings, activeLayers, onMarkerClick, onVRCli
                 ))}
 
                 {/* Weather Markers */}
-                {activeLayers.weather && Object.entries(mockWeatherData).map(([city, data], idx) => {
-                    const coords = touristDensityData[idx];
-                    if (!coords) return null;
-
-                    return (
-                        <Marker
-                            key={`weather-${city}`}
-                            position={[coords[0], coords[1]]}
-                            icon={createCustomIcon('#3b82f6')}
-                        >
-                            <Popup>
-                                <div className={styles.popup}>
-                                    <h4>{getWeatherIcon(data.condition)} {city}</h4>
-                                    <p className={styles.temp}>{data.temp}°C</p>
-                                    <p>{data.condition}</p>
-                                    <div className={styles.weatherDetails}>
-                                        <span>💧 {data.humidity}%</span>
-                                        <span>💨 {data.windSpeed} km/h</span>
-                                    </div>
+                {activeLayers.weather && weatherData.map((data, idx) => (
+                    <Marker
+                        key={`weather-${idx}`}
+                        position={[data.lat, data.lng]}
+                        icon={createCustomIcon('#3b82f6')}
+                    >
+                        <Popup>
+                            <div className={styles.popup}>
+                                <h4>{data.icon} {data.city}</h4>
+                                <p className={styles.temp}>{data.temp}°C</p>
+                                <p>{data.condition}</p>
+                                <div className={styles.weatherDetails}>
+                                    <span>💨 {data.windSpeed} km/h</span>
                                 </div>
-                            </Popup>
-                        </Marker>
-                    );
-                })}
+                            </div>
+                        </Popup>
+                    </Marker>
+                ))}
 
                 {/* Transportation Markers */}
                 {activeLayers.transport && transportationData.map((station, idx) => (
